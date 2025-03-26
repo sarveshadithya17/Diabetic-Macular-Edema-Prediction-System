@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetic Macular Edema (DME) Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with animation -->
+        <h1 class="main-heading">Diabetic Macular Edema (DME) Prediction</h1>
+        <p class="intro-text">Upload your OCT image to detect Diabetic Macular Edema (DME).</p>
+
+        <!-- File Upload Form -->
+        <form action="/predict" method="post" enctype="multipart/form-data" class="upload-form">
+            <input type="file" name="image" accept="image/*" required>
+            <button type="submit">Submit</button>
+        </form>
+
+        <!-- Display the result -->
+        <div id="result" class="result-container">
+            {% if image_url %}
+                <h3 class="result-heading">Predicted Image with DME Detection:</h3>
+                <img src="{{ image_url }}" alt="Merged Prediction Image" class="output-image animated">
+                <!-- Upload Again Button -->
+                <form action="/" method="get">
+                    <button type="submit" class="upload-again-btn animated">Upload Another Image</button>
+                </form>
+            {% endif %}
+        </div>
+
+        <!-- Color Indicator -->
+        <div class="color-indicator animated">
+            <h3>DME Detection Legend:</h3>
+            <div class="color-box">
+                <div class="color-sample" style="background-color: red;"></div>
+                <span class="color-text">Red indicates DME regions</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
